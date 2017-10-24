@@ -1,8 +1,7 @@
 require "csv"
-require "./lib/attendees"
+require "./lib/attendee"
 
-
-class queue
+class Queue
   attr_reader :contents
 
   def initialize
@@ -11,7 +10,7 @@ class queue
   end
 
   def load(filename)
-    @contents = CSV.open "event_attendees.csv", headers: true, header_converters: :symbol
+    @contents = CSV.open "full_event_attendees.csv", headers: true, header_converters: :symbol
     @contents.each do |row|
       attendees = Attendee.new(row)
       @queue << attendees
@@ -105,29 +104,29 @@ class queue
   def save_to(filename)
   end
 
-  def help#without attribute ???
+  def help#without attribute 
   end
 
   def help(command)
-    if command = "load"
+    if command == "load"
       p "Erase any loaded data and parse the specified file. If no filename is given, default to full_event_attendees.csv"
-    elsif command = "find"
+    elsif command == "find"
       p "Populate the queue with all records matching the criteria for the given attribute"
-    elsif command = "count"
+    elsif command == "count"
       p "Output how many records are in the current queue"
-    elsif command = "clear"
+    elsif command == "clear"
       p "Empty the queue"
-    elsif command = "print"
+    elsif command == "print"
       p "Print out a tab-delimited data table with a header row"
-    elsif command = "print_by"
+    elsif command == "print_by"
       p "Print the data table sorted by the specified attribute like zipcode"
-    elsif command = "save_to"
+    elsif command == "save_to"
       p "Export the current queue to the specified filename as a CSV. The file should should include data and headers for last name, first name, email, zipcode, city, state, address, and phone number"
-    elsif command = "export_html"
+    elsif command == "export_html"
       p "Export the current queue to the specified filename as a valid HTML file. The file should use tables and include the data for all of the expected information"
-    elsif command = "help"
+    elsif command == "help"
       p "Output a listing of the available individual commands"
-    else command = "help(command)"
+    else command == "help(command)"
       p "Output a description of how to use the specific command"
     end
   end

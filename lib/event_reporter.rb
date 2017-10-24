@@ -1,8 +1,2 @@
 class EventReporter
-
-
-
-
-
-
 end
