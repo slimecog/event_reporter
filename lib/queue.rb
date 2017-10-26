@@ -6,85 +6,104 @@ class Queue
 
   def initialize
     @queue = []
-    @contents = contents
+    @contents = []
   end
 
-  def load(filename)
-    @contents = CSV.open "full_event_attendees.csv", headers: true, header_converters: :symbol
-    @contents.each do |row|
-      attendees = Attendee.new(row)
-      @queue << attendees
+  def load(filename = "full_event_attendees.csv")
+    contents = CSV.open filename, headers: true, header_converters: :symbol
+    contents.map do |row|
+      @contents << Attendee.new(row)
     end
   end
 
   def find_id(id)
+    @queue = []
     @contents.each do |row|
-      id = row[:id]
+      if row.id == id
+        @queue << row
+      end
     end
-    puts "#{id}"
   end
 
   def find_registration_date(date)
+    @queue = []
     @contents.each do |row|
-      date = row[:registration_date]
+      if row.registration_date == date
+        @queue << row
+      end
     end
-    puts "#{date}"
   end
 
-  def find_first_name(name)
+  def find_first_name(first_name)
+    @queue = []
     @contents.each do |row|
-      name = row[:first_name]
+      if row.first_name == first_name
+        @queue << row
+      end
     end
-    puts "#{name}"
   end
 
   def find_last_name(last_name)
+    @queue = []
     @contents.each do |row|
-      last_name = row[:last_name]
+      if row.last_name == last_name
+        @queue << row
+      end
     end
-    puts "#{last_name}"
   end
 
   def find_email_address(email_address)
+    @queue = []
     @contents.each do |row|
-      email_address = row[:email_address]
+      if row.email_address == email_address
+        @queue << row
+      end
     end
-    puts "#{email_address}"
   end
 
   def find_home_phone(home_phone)
+    @queue = []
     @contents.each do |row|
-      home_phone = row[:home_phone]
+      if row.home_phone == home_phone
+        @queue << row
+      end
     end
-    puts "#{home_phone}"
   end
 
   def find_street(street)
+    @queue = []
     @contents.each do |row|
-      street = row[:street]
+      if row.street == street
+        @queue << row
+      end
     end
-    puts "#{street}"
   end
 
   def find_city(city)
+    @queue = []
     @contents.each do |row|
-      city = row[:city]
+      if row.city == city
+        @queue << row
+      end
     end
-    puts "#{city}"
   end
 
   def find_state(state)
+    @queue = []
     @contents.each do |row|
-      state = row[:state]
+      if row.state == state
+        @queue << row
+      end
     end
-    puts "#{state}"
   end
 
   def find_zipcode(zipcode)
+    @queue = []
     @contents.each do |row|
-      zipcode = row[:zipcode]
+      if row.zipcode == zipcode
+        @queue << row
+      end
     end
-    puts "#{zipcode}"
   end
 
   def count
@@ -102,32 +121,5 @@ class Queue
   end
 
   def save_to(filename)
-  end
-
-  def help#without attribute 
-  end
-
-  def help(command)
-    if command == "load"
-      p "Erase any loaded data and parse the specified file. If no filename is given, default to full_event_attendees.csv"
-    elsif command == "find"
-      p "Populate the queue with all records matching the criteria for the given attribute"
-    elsif command == "count"
-      p "Output how many records are in the current queue"
-    elsif command == "clear"
-      p "Empty the queue"
-    elsif command == "print"
-      p "Print out a tab-delimited data table with a header row"
-    elsif command == "print_by"
-      p "Print the data table sorted by the specified attribute like zipcode"
-    elsif command == "save_to"
-      p "Export the current queue to the specified filename as a CSV. The file should should include data and headers for last name, first name, email, zipcode, city, state, address, and phone number"
-    elsif command == "export_html"
-      p "Export the current queue to the specified filename as a valid HTML file. The file should use tables and include the data for all of the expected information"
-    elsif command == "help"
-      p "Output a listing of the available individual commands"
-    else command == "help(command)"
-      p "Output a description of how to use the specific command"
-    end
   end
 end
