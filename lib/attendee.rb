@@ -12,7 +12,7 @@ class Attendee
 
   def initialize(personal_info)
     @id                = personal_info[:id]
-    @registration_date = personal_info[:personal_info]
+    @registration_date = personal_info[:registration_date]
     @first_name        = personal_info[:first_name]
     @last_name         = personal_info[:last_name]
     @email_address     = personal_info[:email_address]
